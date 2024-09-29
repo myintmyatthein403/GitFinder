@@ -46,7 +46,7 @@ const SearchUser = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 border border-gray-300 rounded-lg shadow-lg bg-white">
+    <div className="max-w-2xl h-screen mx-auto p-6 border border-gray-300 rounded-lg shadow-lg bg-white">
       <SearchForm handleSearch={handleSearch} />
       {loading && <Loading />}
       {error && <ErrorMessage message={error?.message} />}

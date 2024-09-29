@@ -69,7 +69,7 @@ const Issues = ({ owner, repo }: { owner: string; repo: string }) => {
   if (error) return <ErrorMessage message={error.message} />;
 
   return (
-    <div className="max-w-3xl mx-auto p-8 border border-gray-200 rounded-lg shadow-md bg-gray-50">
+    <div className="max-w-3xl h-full mx-auto p-8 border border-gray-200 rounded-lg shadow-md bg-gray-50">
       <h3 className="text-3xl font-bold mb-6">Repository Information</h3>
       <RepoInformationCard repoData={repoData} userData={userData} />
       <div className="flex items-center mb-6">
@@ -83,8 +83,8 @@ const Issues = ({ owner, repo }: { owner: string; repo: string }) => {
       </div>
 
       <ul className="space-y-6">
-        {data.repository.issues.nodes.map((issue: any) => (
-          <IssueCard key={issue.id} issue={issue} />
+        {data.repository.issues.nodes.map((issue: any, index: number) => (
+          <IssueCard key={index} issue={issue} />
         ))}
         <PageNavigation
           handleNextPage={handleNextPage}
