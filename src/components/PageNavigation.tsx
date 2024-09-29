@@ -12,7 +12,16 @@ interface PageNavigationProps {
   totalPages: number;
 }
 
-export const PageNavigation: React.FC<PageNavigationProps> = ({ handlePrevPage, handleNextPage, pageInfo, totalCount, itemsPerPage, limit, currentPage, totalPages }) => {
+export const PageNavigation: React.FC<PageNavigationProps> = ({
+  handlePrevPage,
+  handleNextPage,
+  pageInfo,
+  totalCount,
+  itemsPerPage,
+  currentPage,
+  totalPages,
+}) => {
+  console.log(currentPage);
   return (
     <div className="flex flex-col items-center mt-6 gap-4">
       <div className="flex justify-center gap-4">
@@ -33,9 +42,10 @@ export const PageNavigation: React.FC<PageNavigationProps> = ({ handlePrevPage, 
       </div>
       {pageInfo && (
         <div className="text-gray-800 mt-2">
-          Page {currentPage} of {totalPages} | Showing {itemsPerPage} items per page out of {totalCount} items
+          Page {currentPage} of {totalPages} | Showing {itemsPerPage} items per
+          page out of {totalCount} items
         </div>
       )}
     </div>
-  )
-}
+  );
+};

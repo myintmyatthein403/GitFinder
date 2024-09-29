@@ -1,8 +1,19 @@
 import { gql } from "@apollo/client";
 
 export const SEARCH_USERS = gql`
-  query searchUsers($query: String!, $first: Int!, $after: String, $before: String) {
-    search(type: USER, query: $query, first: $first, after: $after, before: $before) {
+  query searchUsers(
+    $query: String!
+    $first: Int!
+    $after: String
+    $before: String
+  ) {
+    search(
+      type: USER
+      query: $query
+      first: $first
+      after: $after
+      before: $before
+    ) {
       edges {
         node {
           ... on User {
@@ -17,6 +28,7 @@ export const SEARCH_USERS = gql`
         startCursor
         hasPreviousPage
       }
+      userCount
     }
   }
 `;
@@ -34,7 +46,12 @@ export const SEARCH_USER_BY_LOGIN = gql`
 `;
 
 export const GET_USER_REPOS = gql`
-  query getUserRepos($login: String!, $first: Int!, $after: String, $before: String) {
+  query getUserRepos(
+    $login: String!
+    $first: Int!
+    $after: String
+    $before: String
+  ) {
     user(login: $login) {
       repositories(first: $first, after: $after, before: $before) {
         nodes {
@@ -47,13 +64,20 @@ export const GET_USER_REPOS = gql`
           hasNextPage
           hasPreviousPage
         }
+        totalCount
       }
     }
   }
 `;
 
 export const GET_REPO_ISSUES = gql`
-  query getRepoIssues($owner: String!, $name: String!, $first: Int!, $after: String, $before: String) {
+  query getRepoIssues(
+    $owner: String!
+    $name: String!
+    $first: Int!
+    $after: String
+    $before: String
+  ) {
     repository(owner: $owner, name: $name) {
       issues(first: $first, after: $after, before: $before, states: OPEN) {
         nodes {
@@ -91,7 +115,9 @@ export const GET_REPO_INFO = gql`
 
 export const CREATE_ISSUE = gql`
   mutation createIssue($repositoryId: ID!, $title: String!, $body: String) {
-    createIssue(input: { repositoryId: $repositoryId, title: $title, body: $body }) {
+    createIssue(
+      input: { repositoryId: $repositoryId, title: $title, body: $body }
+    ) {
       issue {
         id
         title

@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
-import { useQuery } from '@apollo/client';
-import { SEARCH_USERS } from '../graphql/users/graphql';
-import { Loading } from './Loading';
-import { ErrorMessage } from './ErrorMessage';
-import { UserCard } from './UserCard';
-import { PageNavigation } from './PageNavigation';
-import { SearchForm } from './SearchForm';
+import React, { useState } from "react";
+import { useQuery } from "@apollo/client";
+import { SEARCH_USERS } from "../graphql/users/graphql";
+import { Loading } from "./Loading";
+import { ErrorMessage } from "./ErrorMessage";
+import { UserCard } from "./UserCard";
+import { PageNavigation } from "./PageNavigation";
+import { SearchForm } from "./SearchForm";
 
 const SearchUser = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [after, setAfter] = useState<string | null>(null);
   const [before, setBefore] = useState<string | null>(null);
-  const limit = 10
+  const [currentPage, setCurrentPage] = useState(1);
+  const limit = 9;
 
   const { loading, error, data } = useQuery(SEARCH_USERS, {
     variables: { query: searchTerm, first: limit, after, before },
-    skip: searchTerm === '',
+    skip: searchTerm === "",
   });
 
   const handleSearch = (e: React.FormEvent) => {
@@ -30,6 +31,7 @@ const SearchUser = () => {
 
   const handleNextPage = () => {
     if (data?.search.pageInfo.hasNextPage) {
+      setCurrentPage(currentPage + 1);
       setAfter(data.search.pageInfo.endCursor);
       setBefore(null);
     }
@@ -37,6 +39,7 @@ const SearchUser = () => {
 
   const handlePrevPage = () => {
     if (data?.search.pageInfo.hasPreviousPage) {
+      setCurrentPage(currentPage - 1);
       setBefore(data.search.pageInfo.startCursor);
       setAfter(null);
     }
@@ -56,6 +59,11 @@ const SearchUser = () => {
         handleNextPage={handleNextPage}
         handlePrevPage={handlePrevPage}
         pageInfo={data?.search.pageInfo}
+        totalCount={data?.search.userCount}
+        itemsPerPage={limit}
+        limit={limit}
+        currentPage={currentPage}
+        totalPages={Math.ceil(data?.search.userCount / limit)}
       />
     </div>
   );
