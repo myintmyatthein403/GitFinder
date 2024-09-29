@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import { SEARCH_USERS } from "../graphql/users/graphql";
 import { Loading } from "./Loading";
 import { ErrorMessage } from "./ErrorMessage";
-import { UserCard } from "./UserCard";
+import { UserCard } from "./Card/UserCard";
 import { PageNavigation } from "./PageNavigation";
 import { SearchForm } from "./SearchForm";
 

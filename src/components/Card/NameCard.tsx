@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
-import { SEARCH_USER_BY_LOGIN } from "../graphql/users/graphql";
-import { Loading } from "./Loading";
-import { ErrorMessage } from "./ErrorMessage";
+import { SEARCH_USER_BY_LOGIN } from "../../graphql/users/graphql";
+import { Loading } from "./../Loading";
+import { ErrorMessage } from "./../ErrorMessage";
 
 interface NameCardProps {
   name: string;

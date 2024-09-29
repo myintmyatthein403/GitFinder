@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import { gql, useQuery } from "@apollo/client";
+import { useState } from "react";
+import { useQuery } from "@apollo/client";
 import { GET_USER_REPOS } from "../graphql/users/graphql";
 import { Loading } from "./Loading";
 import { PageNavigation } from "./PageNavigation";
-import { NameCard } from "./NameCard";
-import { RepoCard } from "./RepoCard";
+import { NameCard } from "./Card/NameCard";
+import { RepoCard } from "./Card/RepoCard";
+import { ErrorMessage } from "./ErrorMessage";
 
 const Repositories = ({ login }: { login: string }) => {
   const [after, setAfter] = useState<string | null>(null);
@@ -16,7 +17,7 @@ const Repositories = ({ login }: { login: string }) => {
   });
 
   if (loading) return <Loading />;
-  if (error) return <p className="text-red-500">Error: {error.message}</p>;
+  if (error) return <ErrorMessage message={error.message} />;
 
   const handleNextPage = () => {
     if (data?.user.repositories.pageInfo.hasNextPage) {

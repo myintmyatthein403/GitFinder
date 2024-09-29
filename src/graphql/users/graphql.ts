@@ -53,7 +53,7 @@ export const GET_USER_REPOS = gql`
     $before: String
   ) {
     user(login: $login) {
-      repositories(first: $first, after: $after, before: $before) {
+      repositories(first: $first, after: $after, before: $before, privacy: PUBLIC) {
         nodes {
           id
           name
@@ -79,7 +79,7 @@ export const GET_REPO_ISSUES = gql`
     $before: String
   ) {
     repository(owner: $owner, name: $name) {
-      issues(first: $first, after: $after, before: $before, states: OPEN) {
+      issues(first: $first, after: $after, before: $before, states: OPEN, orderBy: { field: CREATED_AT, direction: DESC }) {
         nodes {
           title
           body
